@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="Sqlite" id="Project4399175" database="Sqlite" >
+	<schema name="Default" schemaname="Default" >
+		<table name="Archetype" >
+			<column name="NID" type="integer" jt="4" mandatory="y" regexp_nulls="0" />
+			<column name="PID" type="integer" jt="4" mandatory="y" regexp_nulls="0" />
+			<column name="SID" type="integer" jt="4" mandatory="y" regexp_nulls="0" />
+			<index name="Idx_Archetype" unique="PRIMARY_KEY" >
+				<column name="NID" />
+				<column name="PID" />
+				<column name="SID" />
+			</index>
+			<fk name="fk_archetype_npc" to_schema="Default" to_table="NPC" delete_action="cascade" update_action="cascade" >
+				<fk_column name="NID" pk="NID" />
+			</fk>
+			<fk name="fk_archetype_personality" to_schema="Default" to_table="Personality" delete_action="cascade" update_action="cascade" >
+				<fk_column name="PID" pk="PID" />
+			</fk>
+			<fk name="fk_archetype_style" to_schema="Default" to_table="Style" delete_action="cascade" update_action="cascade" >
+				<fk_column name="SID" pk="SID" />
+			</fk>
+		</table>
+		<table name="Dialog" >
+			<column name="DID" type="integer" jt="4" mandatory="y" regexp_nulls="0" />
+			<column name="PID" type="integer" jt="4" mandatory="y" regexp_nulls="0" />
+			<column name="Context" type="text" length="250" jt="-1" mandatory="y" regexp_nulls="0" />
+			<index name="Idx_Dialog" unique="UNIQUE" >
+				<column name="DID" />
+			</index>
+			<index name="Idx_Dialog" unique="PRIMARY_KEY" >
+				<column name="DID" />
+				<column name="PID" />
+			</index>
+			<index name="idx_Dialog" unique="NORMAL" >
+				<column name="PID" />
+			</index>
+			<fk name="fk_dialog_personality" to_schema="Default" to_table="Personality" delete_action="cascade" update_action="cascade" >
+				<fk_column name="PID" pk="PID" />
+			</fk>
+		</table>
+		<table name="Event" >
+			<column name="EID" type="integer" jt="4" mandatory="y" regexp_nulls="0" />
+			<column name="NID" type="integer" jt="4" mandatory="y" regexp_nulls="0" />
+			<column name="Event" type="text" jt="-1" mandatory="y" regexp_nulls="0" />
+			<column name="Description" type="text" jt="-1" />
+			<index name="Idx_Event" unique="UNIQUE" >
+				<column name="EID" />
+			</index>
+			<index name="Idx_Event" unique="PRIMARY_KEY" >
+				<column name="EID" />
+				<column name="NID" />
+			</index>
+			<index name="idx_Event" unique="NORMAL" >
+				<column name="NID" />
+			</index>
+			<fk name="fk_event_npc" to_schema="Default" to_table="NPC" delete_action="cascade" update_action="cascade" >
+				<fk_column name="NID" pk="NID" />
+			</fk>
+		</table>
+		<table name="NPC" >
+			<comment>NPCs&#039; information</comment>
+			<column name="NID" type="integer" jt="4" mandatory="y" regexp_nulls="0" />
+			<column name="Name" type="text" jt="-1" mandatory="y" regexp_nulls="0" >
+				<defo>&#039;路人&#039;</defo>
+			</column>
+			<column name="Age" type="integer" jt="4" />
+			<column name="Race" type="text" jt="-1" />
+			<column name="NameEng" type="text" length="100" jt="-1" >
+				<comment><![CDATA[Name in English]]></comment>
+			</column>
+			<index name="Pk_NPC" unique="PRIMARY_KEY" >
+				<column name="NID" />
+			</index>
+			<index name="sqlite_autoindex_NPC_1" unique="UNIQUE" >
+				<column name="Name" />
+			</index>
+		</table>
+		<table name="Personality" >
+			<column name="PID" type="integer" jt="4" mandatory="y" regexp_nulls="0" />
+			<column name="Personality" type="text" jt="-1" mandatory="y" regexp_nulls="0" >
+				<defo>&#039;基本&#039;</defo>
+			</column>
+			<column name="PersonalityJap" type="text" jt="-1" >
+				<defo>&#039;基本&#039;</defo>
+			</column>
+			<column name="PersonalityEng" type="text" jt="-1" >
+				<defo>&#039;Elementary&#039;</defo>
+			</column>
+			<column name="Description" type="text" jt="-1" >
+				<defo>&#039;Normal&#039;</defo>
+			</column>
+			<index name="Pk_Personality" unique="PRIMARY_KEY" >
+				<column name="PID" />
+			</index>
+			<index name="sqlite_autoindex_Personality_1" unique="UNIQUE" >
+				<column name="Personality" />
+			</index>
+		</table>
+		<table name="Style" >
+			<column name="SID" type="integer" jt="4" mandatory="y" regexp_nulls="0" />
+			<column name="Style" type="text" jt="-1" mandatory="y" regexp_nulls="0" />
+			<column name="Description" type="text" jt="-1" />
+			<column name="Hair" type="blob" jt="2004" />
+			<column name="Face" type="blob" jt="2004" />
+			<column name="Clothes" type="blob" jt="2004" />
+			<index name="Pk_Style" unique="PRIMARY_KEY" >
+				<column name="SID" />
+			</index>
+			<index name="sqlite_autoindex_Style_1" unique="UNIQUE" >
+				<column name="Style" />
+			</index>
+		</table>
+	</schema>
+	<connector name="Sqlite" database="Sqlite" driver_class="org.sqlite.JDBC" driver_jar="sqlite-jdbc-3.7.15.jar" host="localhost" port="7210" instance="C:/Users/PCuser/Desktop/NpcEmotion.sqlite" schema_mapping="" />
+	<layout id="Layout4436323" name="Default" show_relation_name="y" >
+		<entity schema="Default" name="Archetype" color="a8c4ef" x="420" y="300" />
+		<entity schema="Default" name="Personality" color="a8c4ef" x="645" y="300" />
+		<entity schema="Default" name="Dialog" color="a8c4ef" x="825" y="300" />
+		<entity schema="Default" name="Style" color="a8c4ef" x="420" y="45" />
+		<entity schema="Default" name="NPC" color="a8c4ef" x="225" y="300" />
+		<entity schema="Default" name="Event" color="a8c4ef" x="45" y="300" />
+	</layout>
+</project>
