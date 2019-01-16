@@ -11,7 +11,7 @@
 
 ### 第三方 Framework
 - [FMDB][]
-- [cocos2d-iphone][]
+- [cocos2d-iphone](https://cocos2d-x.org)
 
 
 ### License
